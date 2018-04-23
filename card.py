@@ -1,39 +1,5 @@
 from tools import *
 
-#class Deck(object):
-#    def __init__(self):
-#        self.cardList = []
-#        self.buildCard()
-#
-#    def build(self):
-#        decklist = [Infintry, Berserker, knight, spearman, crusader, shield breaker]: #sets the suit
-#        for Infintry in decklist():
-#            for val in range(1, 5):
-#            Hp = 8
-#            self.cardList.append(Card(arrows1, number, 1, colour))
-#        for Berserker in decklist():
-#            for val in range(1,5):
-#            Hp = 8
-#            self.cardList.append(Card(arrows2, number, 2, colour))
-#        for knight in decklist():
-#            for val in range(1, 5):
-#            Hp = 8
-#            self.cardList.append(Card(arrows3 number, 3, colour))
-#        for spearman in decklistt():
-#            for val in range(1, 5):
-#
-#            for sc in ["commander", "grand commander", "chieftan", "marshal", "field marshal", "grand marshal"]:
-#                for sv in range(1, 6):
-#                    for shp in range(8, 9):
-#                        for sp in range(5, 6):
-#                            for v in range(1, 5): #sets the value of the card
-#                                for hp in range(3, 6):
-#                                    for p in range(2, 5): #sets the attack power of the card
-#                                        self.cards.append(Card(s, p, v, hp, sc, sp, sv, shp)) # shows in order the attributes
-
-
-##############################
-
 class Card(object):
     #things to figure out
     #what does n represent
