@@ -1,11 +1,13 @@
 from tools import *
+import random
 
 class Board(object):
     def __init__(self,size, players):
         self.size = size
         self.board = []
         self.player = players
-        self.curPlayerNum = randint(0,len(self.player)-1)
+        #self.curPlayerNum = randint(0,len(self.player)-1)
+        self.curPlayerNum = 0
         self.curPlayer = self.player[self.curPlayerNum]
         self.pointsOnBoard = 0
         self.TotalScore = 0
@@ -45,9 +47,11 @@ class Board(object):
 
 ###############################################################################
     #deals with attack arrows allows for combat to happen
+    #checks to see if the card is on the very edge of the board
     def outerInterface(self, number, cards):
         limitMax = self.size-1
-        if number == 1 and cards.x!=0 and cards.y!=0:
+        #x and y = 0 means very top of the grid
+        if number == 0 and cards.x!=0 and cards.y!=0:
             return False
         elif number == 1 and cards.y!=0:
             return False
@@ -69,10 +73,12 @@ class Board(object):
 #################################################################################################
     def battlePhase(self, cards):
         battle = []
-        for number in cards.arrows.keys(): 
+        for number in cards.arrows.keys():
+            #if there is an arrow with an attack number(0 to 7)
             if cards.arrows[number] == 1 and not self.outerInterface(number, cards):
                 X = getX(number, cards.x)
                 Y = getY(number, cards.y)
+                #[X][Y] was originally [Y][X]
                 if self.board[Y][X].placed and self.get(X, Y).player != cards.player:
                     if self.get(X, Y).arrows[(number+4)%8]==1:
                         battle.append(number)
@@ -162,10 +168,11 @@ class Board(object):
             if player.score > winner.score:
                 winner = player
         if winner.score > 5:
-            winner.round = winner.round + 1
+            winner.round = winner.round +1 #oringinally +1 if doesn't work fix
             #this line allows for the player to restart the game into a new round
             #i would like to change this so that it creates a menu to ask if they want a new round or to quit
             retryBtn("The Player " + winner.name + " is the winner.", MapGrid)
+
 
 #################################################################################################
     def finalizeScore(self): ###
@@ -250,9 +257,15 @@ class Board(object):
             #creates black outlines to show where player's hand is
             pygame.draw.rect(MapGrid, black, pygame.Rect(50, 50 + handCards * (cardHeight + 10), cardWidth + 6, cardHeight + 6), 2)
             pygame.draw.rect(MapGrid, black, pygame.Rect(650, 50 + handCards * (cardHeight + 10), cardWidth + 6, cardHeight + 6), 2)
+
+        #randomList = random.sample(range(5),5)
         for player in self.player:
+			#for i in randomList:
+			#	cards = player.cards[i]
+        	#	cards.draw(MapGrid)
             for cards in player.cards:
-                cards.draw(MapGrid)#draws inside mapgrid
+            	cards.draw(MapGrid)#draws inside mapgrid
+            	
         scoreTracker = pygame.font.SysFont("monospace", 20).render(
             self.player[0].name + " " + str(self.player[0].score) + "  /  " + str(self.player[1].score) + " " +
             self.player[1].name, 10, black)
